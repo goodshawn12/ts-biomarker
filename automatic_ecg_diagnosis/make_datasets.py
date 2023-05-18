@@ -14,6 +14,7 @@ class ECGDataset:
         self.y = self.y.values
         self.n_classes = len(self.classes)
         self.n_samples = len(self.x)
+        self.info = pd.read_csv(paths.PATIENT_ATTRIBUTES)
 
     def __del__(self):
         self.f.close()
