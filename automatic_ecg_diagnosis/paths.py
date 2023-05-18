@@ -2,7 +2,9 @@ from pathlib import Path
 
 # Path to the root of the project
 ROOT = Path(__file__).parent
-ROOT_DATA = Path('/Volumes/shawn-ssd/Data/automatic_ecg_diagnosis')  # Change to your data path)
+
+# User-defined root path to downloaded data folder
+ROOT_DATA = Path('/Volumes/shawn-ssd/Data/automatic_ecg_diagnosis')
 
 # Path to the data folder
 DIR_DATA = ROOT_DATA / "data"
