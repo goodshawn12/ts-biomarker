@@ -1,8 +1,7 @@
 import h5py
-import numpy as np
 import pandas as pd
 
-from automatic_ecg_diagnosis import paths
+from automatic_ecg_diagnosis import paths, constants
 
 
 class ECGDataset:
@@ -22,6 +21,7 @@ class ECGDataset:
         self.n_classes = len(self.classes)
         self.n_samples = len(self.x)
         self.n_labels = self.y.shape[0]
+        self.sample_rate = constants.SAMPLING_RATE_ECG
 
     def __del__(self):
         self.f.close()
