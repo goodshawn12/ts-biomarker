@@ -6,15 +6,22 @@ from automatic_ecg_diagnosis import paths
 
 
 class ECGDataset:
-    def __init__(self):
-        self.f = h5py.File(paths.ECG_TRACINGS, "r")
+    def __init__(self, test_set=True):
+        if test_set:  # smaller dataset for testing
+            self.f = h5py.File(paths.ECG_TRACINGS, "r")
+            self.y = pd.read_csv(paths.ANNOT_GOLD_STANDARD)
+            self.info = pd.read_csv(paths.PATIENT_ATTRIBUTES)
+        else:
+            self.f = h5py.File(paths.ECG_TRACINGS_0, "r")  # TODO: add more part files
+            self.y = pd.read_csv(paths.ANNOT_TRAIN_DATA)
+            self.info = None
+
         self.x = self.f['tracings']  # convert it to numpy array?
-        self.y = pd.read_csv(paths.ANNOT_GOLD_STANDARD)
         self.classes = self.y.columns.tolist()
         self.y = self.y.values
         self.n_classes = len(self.classes)
         self.n_samples = len(self.x)
-        self.info = pd.read_csv(paths.PATIENT_ATTRIBUTES)
+        self.n_labels = self.y.shape[0]
 
     def __del__(self):
         self.f.close()
